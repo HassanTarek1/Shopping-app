@@ -6,7 +6,9 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.0"
-
+        module: 'com.android.support:appcompat-v7:23.1.1'
+        module: 'com.android.support:design:23.1.1'
+        module: 'com.mcxiaoke.volley:library-aar:1.0.0'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
