@@ -21,6 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import info.androidhive.loginandregistration.MainActivity;
 import info.androidhive.loginandregistration.R;
 import info.androidhive.loginandregistration.app.AppConfig;
 import info.androidhive.loginandregistration.app.AppController;
