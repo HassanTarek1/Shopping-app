@@ -14,12 +14,11 @@
     <color name="btn_login_bg">#eceef1</color>
     <color name="lbl_name">#333333</color>
     <color name="btn_logut_bg">#ff6861</color>
-    <color name="black"></color>
-    <color name="purple_700"></color>
-    <color name="teal_200"></color>
-    <color name="teal_700"></color>
-    <color name="purple_500"></color>
-    <color name="purple_200"></color>
-
+    <color name="purple_500">#222222</color>
+    <color name="purple_700">#222222</color>
+    <color name="teal_200">#222222</color>
+    <color name="teal_700">#222222</color>
+    <color name="black">#222222</color>
+    <color name="purple_200">#222222</color>
 
 </resources>

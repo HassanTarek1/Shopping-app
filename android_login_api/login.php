@@ -21,8 +21,6 @@ if (isset($_POST['email']) && isset($_POST['password'])) {
         $response["uid"] = $user["unique_id"];
         $response["user"]["name"] = $user["name"];
         $response["user"]["email"] = $user["email"];
-		$response["user"]["address"] = $user["address"];
-		$response["user"]["phone"] = $user["phone"];
         $response["user"]["created_at"] = $user["created_at"];
         $response["user"]["updated_at"] = $user["updated_at"];
         echo json_encode($response);

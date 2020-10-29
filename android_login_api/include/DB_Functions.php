@@ -1,9 +1,6 @@
 <?php
  
-/**
- * @author Ravi Tamada
- * @link https://www.androidhive.info/2012/01/android-login-and-registration-with-php-mysql-and-sqlite/ Complete tutorial
- */
+
  
 class DB_Functions {
  
@@ -26,14 +23,14 @@ class DB_Functions {
      * Storing new user
      * returns user details
      */
-    public function storeUser($name, $email, $password, $address, $phone) {
+    public function storeUser($name, $email, $password) {
         $uuid = uniqid('', true);
         $hash = $this->hashSSHA($password);
         $encrypted_password = $hash["encrypted"]; // encrypted password
         $salt = $hash["salt"]; // salt
  
         $stmt = $this->conn->prepare("INSERT INTO users(unique_id, name, email, encrypted_password, salt, created_at) VALUES(?, ?, ?, ?, ?, NOW())");
-        $stmt->bind_param("sssss", $uuid, $name, $email, $address, $phone, $encrypted_password, $salt);
+        $stmt->bind_param("sssss", $uuid, $name, $email, $encrypted_password, $salt);
         $result = $stmt->execute();
         $stmt->close();
  
