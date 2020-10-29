@@ -119,6 +119,8 @@ public class LoginActivity extends Activity {
                 hideDialog();
 
                 try {
+                    int x = response.indexOf('{');
+                    response = response.substring(x);
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
 
