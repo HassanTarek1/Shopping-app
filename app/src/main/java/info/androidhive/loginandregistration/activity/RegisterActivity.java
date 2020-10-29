@@ -35,6 +35,8 @@ public class RegisterActivity extends Activity {
     private EditText inputFullName;
     private EditText inputEmail;
     private EditText inputPassword;
+    private EditText inputAddress;
+    private EditText inputPhone;
     private ProgressDialog pDialog;
     private SessionManager session;
     private SQLiteHandler db;
@@ -47,6 +49,8 @@ public class RegisterActivity extends Activity {
         inputFullName = (EditText) findViewById(R.id.name);
         inputEmail = (EditText) findViewById(R.id.email);
         inputPassword = (EditText) findViewById(R.id.password);
+        inputAddress = (EditText) findViewById(R.id.address);
+        inputPhone = (EditText) findViewById(R.id.phone);
         btnRegister = (Button) findViewById(R.id.btnRegister);
         btnLinkToLogin = (Button) findViewById(R.id.btnLinkToLoginScreen);
 
@@ -75,9 +79,11 @@ public class RegisterActivity extends Activity {
                 String name = inputFullName.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
+                String address = inputAddress.getText().toString().trim();
+                String phone = inputPhone.getText().toString().trim();
 
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    registerUser(name, email, password);
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !address.isEmpty() && !phone.isEmpty()) {
+                    registerUser(name, email, password,address,phone);
                 } else {
                     Toast.makeText(getApplicationContext(),
                             "Please enter your details!", Toast.LENGTH_LONG)
@@ -104,7 +110,7 @@ public class RegisterActivity extends Activity {
      * email, password) to register url
      * */
     private void registerUser(final String name, final String email,
-                              final String password) {
+                              final String password, final  String address , final String phone) {
         // Tag used to cancel the request
         String tag_string_req = "req_register";
 
@@ -120,21 +126,24 @@ public class RegisterActivity extends Activity {
                 hideDialog();
 
                 try {
+                    int x = response.indexOf('{');
+                    response=response.substring(x);
                     JSONObject jObj = new JSONObject(response);
                     boolean error = jObj.getBoolean("error");
                     if (!error) {
                         // User successfully stored in MySQL
                         // Now store the user in sqlite
                         String uid = jObj.getString("uid");
-
                         JSONObject user = jObj.getJSONObject("user");
                         String name = user.getString("name");
                         String email = user.getString("email");
+                        String address = user.getString("address");
+                        String phone = user.getString("phone");
                         String created_at = user
                                 .getString("created_at");
 
                         // Inserting row in users table
-                        db.addUser(name, email, uid, created_at);
+                        db.addUser(uid,name, email,address,phone,  created_at);
 
                         Toast.makeText(getApplicationContext(), "User successfully registered. Try login now!", Toast.LENGTH_LONG).show();
 
@@ -175,6 +184,8 @@ public class RegisterActivity extends Activity {
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
+                params.put("address", address);
+                params.put("phone", phone);
 
                 return params;
             }
