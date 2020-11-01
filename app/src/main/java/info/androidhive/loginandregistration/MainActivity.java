@@ -1,6 +1,7 @@
 package info.androidhive.loginandregistration;
 
 import info.androidhive.loginandregistration.activity.LoginActivity;
+import info.androidhive.loginandregistration.activity.MapActivity;
 import info.androidhive.loginandregistration.helper.SQLiteHandler;
 import info.androidhive.loginandregistration.helper.SessionManager;
 
@@ -18,6 +19,7 @@ public class MainActivity extends Activity {
     private TextView txtName;
     private TextView txtEmail;
     private Button btnLogout;
+    private Button btnmap;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -30,6 +32,7 @@ public class MainActivity extends Activity {
         txtName = (TextView) findViewById(R.id.name);
         txtEmail = (TextView) findViewById(R.id.email);
         btnLogout = (Button) findViewById(R.id.btnLogout);
+        btnmap = (Button) findViewById(R.id.btnmap);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -59,6 +62,14 @@ public class MainActivity extends Activity {
                 logoutUser();
             }
         });
+
+        btnmap.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                map();
+            }
+        });
     }
 
     /**
@@ -74,5 +85,9 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
         finish();
+    }
+    private void map(){
+        Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        startActivity(intent);
     }
 }

@@ -14,5 +14,8 @@
     <string name="name">Fullname</string>
     <string name="hint_phone">phone</string>
     <string name="hint_address">address</string>
+    <string name="map_key" translatable="false">AIzaSyC1Z32gKytNPePBRuf7X3gPK65q8pomTsg</string>
+    <string name="btn_map">Current Location</string>
+
 
 </resources>

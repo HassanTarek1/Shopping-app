@@ -25,11 +25,11 @@ public class SQLiteHandler extends SQLiteOpenHelper {
 
     // Login Table Columns names
     private static final String KEY_ID = "id";
+    private static final String KEY_UID = "uid";
     private static final String KEY_NAME = "name";
     private static final String KEY_EMAIL = "email";
     private static final String KEY_ADDRESS = "address";
     private static final String KEY_PHONE = "phone";
-    private static final String KEY_UID = "uid";
     private static final String KEY_CREATED_AT = "created_at";
 
     public SQLiteHandler(Context context) {
@@ -39,9 +39,9 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_LOGIN_TABLE = "CREATE TABLE " + TABLE_USER + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," +KEY_UID + " TEXT,"+ KEY_NAME + " TEXT,"
-                + KEY_EMAIL + " TEXT UNIQUE,"+  KEY_ADDRESS + " TEXT,"+KEY_PHONE + " TEXT UNIQUE,"
+        String CREATE_LOGIN_TABLE =  "CREATE TABLE " + TABLE_USER + "("
+                + KEY_ID + " INTEGER PRIMARY KEY," +   KEY_NAME + " TEXT,"
+                + KEY_EMAIL + " TEXT UNIQUE," + KEY_ADDRESS + "TEXT," + KEY_PHONE + "TEXT UNIQUE,"+ KEY_UID + " TEXT UNIQUE,"
                 + KEY_CREATED_AT + " TEXT" + ")";
         db.execSQL(CREATE_LOGIN_TABLE);
 
@@ -61,16 +61,17 @@ public class SQLiteHandler extends SQLiteOpenHelper {
     /**
      * Storing user details in database
      * */
-    public void addUser(String uid, String name, String email,String address,String phone,String created_at) {
+    public void addUser( String name, String email,String address,String phone,String uid,String created_at) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_UID, uid); // Email
+
         values.put(KEY_NAME, name); // Name
         values.put(KEY_EMAIL, email); // Email
-        values.put(KEY_ADDRESS, address);
-        values.put(KEY_PHONE, phone);
-        values.put(KEY_CREATED_AT, created_at); // Created At
+        //values.put(KEY_ADDRESS, address);
+       // values.put(KEY_PHONE, phone);
+        values.put(KEY_UID, uid);
+        values.put(KEY_CREATED_AT, created_at);
 
         // Inserting Row
         long id = db.insert(TABLE_USER, null, values);
@@ -91,12 +92,10 @@ public class SQLiteHandler extends SQLiteOpenHelper {
         // Move to first row
         cursor.moveToFirst();
         if (cursor.getCount() > 0) {
-            user.put("uid", cursor.getString(1));
-            user.put("name", cursor.getString(2));
-            user.put("email", cursor.getString(3));
-            user.put("address", cursor.getString(4));
-            user.put("password", cursor.getString(5));
-            user.put("created_at", cursor.getString(6));
+            user.put("name", cursor.getString(1));
+            user.put("email", cursor.getString(2));
+            user.put("uid", cursor.getString(3));
+            user.put("created_at", cursor.getString(4));
         }
         cursor.close();
         db.close();
