@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.Request.Method;
+import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
@@ -117,7 +117,7 @@ public class RegisterActivity extends Activity {
         pDialog.setMessage("Registering ...");
         showDialog();
 
-        StringRequest strReq = new StringRequest(Method.POST,
+        StringRequest strReq = new StringRequest(Request.Method.POST,
                 AppConfig.URL_REGISTER, new Response.Listener<String>() {
 
             @Override
@@ -133,8 +133,8 @@ public class RegisterActivity extends Activity {
                     if (!error) {
                         // User successfully stored in MySQL
                         // Now store the user in sqlite
-                        String uid = jObj.getString("uid");
-                        JSONObject user = jObj.getJSONObject("user");
+                        String uid = jObj.getString("unique_id");
+                        JSONObject user = jObj.getJSONObject("users");
                         String name = user.getString("name");
                         String email = user.getString("email");
                         String address = user.getString("address");
