@@ -16,6 +16,7 @@
     <string name="hint_address">address</string>
     <string name="map_key" translatable="false">AIzaSyC1Z32gKytNPePBRuf7X3gPK65q8pomTsg</string>
     <string name="btn_map">Current Location</string>
+    <string name="btn_products">Products</string>
 
 
 </resources>

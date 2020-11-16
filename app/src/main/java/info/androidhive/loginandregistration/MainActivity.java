@@ -1,18 +1,22 @@
 package info.androidhive.loginandregistration;
 
-import info.androidhive.loginandregistration.activity.LoginActivity;
-import info.androidhive.loginandregistration.activity.MapActivity;
-import info.androidhive.loginandregistration.helper.SQLiteHandler;
-import info.androidhive.loginandregistration.helper.SessionManager;
-
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
+
+import java.util.HashMap;
+
+import info.androidhive.loginandregistration.activity.List_Products;
+import info.androidhive.loginandregistration.activity.LoginActivity;
+import info.androidhive.loginandregistration.activity.MapActivity;
+import info.androidhive.loginandregistration.helper.SQLiteHandler;
+import info.androidhive.loginandregistration.helper.SessionManager;
 
 public class MainActivity extends Activity {
 
@@ -20,10 +24,12 @@ public class MainActivity extends Activity {
     private TextView txtEmail;
     private Button btnLogout;
     private Button btnmap;
+    private Button btnproducts;
 
     private SQLiteHandler db;
     private SessionManager session;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +39,7 @@ public class MainActivity extends Activity {
         txtEmail = (TextView) findViewById(R.id.email);
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnmap = (Button) findViewById(R.id.btnmap);
+        btnproducts= (Button) findViewById(R.id.btnproducts);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -63,11 +70,20 @@ public class MainActivity extends Activity {
             }
         });
 
+        // map button click event
         btnmap.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 map();
+            }
+        });
+
+        // products button click event
+        btnproducts.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showProducts();
             }
         });
     }
@@ -88,6 +104,11 @@ public class MainActivity extends Activity {
     }
     private void map(){
         Intent intent = new Intent(MainActivity.this, MapActivity.class);
+        startActivity(intent);
+    }
+
+    private void showProducts(){
+        Intent intent = new Intent(MainActivity.this, List_Products.class);
         startActivity(intent);
     }
 }

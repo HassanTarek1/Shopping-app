@@ -34,6 +34,17 @@
             android:textSize="13dp" />
 
         <Button
+            android:id="@+id/btnproducts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dip"
+            android:background="#2299A8"
+            android:text="@string/btn_products"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textColorLink="#FFFFFF"
+            android:textSize="15dp" />
+        <Button
             android:id="@+id/btnmap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,12 +56,14 @@
             android:textColorLink="#FFFFFF"
             android:textSize="15dp" />
 
+
+
         <Button
             android:id="@+id/btnLogout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dip"
-            android:background="@color/btn_logut_bg"
+            android:background="#DC1F16"
             android:text="@string/btn_logout"
             android:textAllCaps="false"
             android:textColor="@color/white"
