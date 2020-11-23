@@ -17,6 +17,9 @@
     <string name="map_key" translatable="false">AIzaSyC1Z32gKytNPePBRuf7X3gPK65q8pomTsg</string>
     <string name="btn_map">Current Location</string>
     <string name="btn_products">Products</string>
+    <string name="shop_name">Shop Name:</string>
+    <string name="price">"Price: "</string>
+    <string name="offer">"Offer: "</string>
 
 
 </resources>
