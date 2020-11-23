@@ -1,5 +1,8 @@
 package info.androidhive.loginandregistration.activity;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.widget.ListView;
@@ -35,6 +38,7 @@ public class Shop extends AppCompatActivity {
     String line = null;
     String result = null;
     int id;
+    int LAUNCH_SECOND_ACTIVITY = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,10 @@ public class Shop extends AppCompatActivity {
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
         collectData1();
+
+        Intent intent = new Intent(Shop.this,MapActivity.class);
+        startActivityForResult(intent, LAUNCH_SECOND_ACTIVITY);
+        
         CustomListView2 customListView = new CustomListView2(this, shopName, price, specialOffer);
         listView.setAdapter(customListView);
     }
@@ -177,4 +185,22 @@ public class Shop extends AppCompatActivity {
 
 
     }
+
+    private double getDistance(double logitude, double latitde, Location current){
+        return 0;
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String current="";
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if(resultCode == Activity.RESULT_OK){
+                current =data.getStringExtra("result");
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //Write your code if there's no result
+                //ro7 el3ab fe elshar3
+            }
+        }
+    }//onActivityResult
 }
