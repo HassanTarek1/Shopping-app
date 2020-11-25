@@ -125,6 +125,8 @@ public class Shop extends AppCompatActivity implements LocationListener {
             specialOffer = new String[ja.length()];
             int k=0;
             for (int i = 0; i <= ja.length(); i++) {
+                price[i]=null;
+                specialOffer[i]=null;
                 jo = ja.getJSONObject(i);
                 productID[i] = jo.getString("product_id");
                 int idtmp = Integer.parseInt(productID[i]);
@@ -187,6 +189,8 @@ public class Shop extends AppCompatActivity implements LocationListener {
             int k=0;
 //            fetchLocation();
             for (int i = 0; i <= ja.length(); i++) {
+                shopName[i]=null;
+                distances[i]=null;
                 jo = ja.getJSONObject(i);
                 String idtmp = jo.getString("id");
                 for (int j = 0; j <shopID.length ; j++) {

@@ -20,6 +20,7 @@
     <string name="shop_name">Shop Name:</string>
     <string name="price">"Price: "</string>
     <string name="offer">"Offer: "</string>
+    <string name="no_offer">No Available Offers</string>
 
 
 </resources>

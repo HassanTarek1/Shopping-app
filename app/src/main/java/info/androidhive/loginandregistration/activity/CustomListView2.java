@@ -54,7 +54,13 @@ public class CustomListView2 extends ArrayAdapter<String> {
 
         viewHolder.tvw1.setText(shopName[position]);
         viewHolder.tvw2.setText(price[position]);
-        viewHolder.tvw3.setText(specialOffer[position]);
+        if(specialOffer[position]!=null && !specialOffer[position].equals(""))
+            viewHolder.tvw3.setText(specialOffer[position]);
+        else{
+            if (shopName[position]!=null && !shopName[position].equals(""))
+                viewHolder.tvw3.setText("No Available Offers");
+        }
+
         viewHolder.tvw4.setText(distances[position]);
 
 
