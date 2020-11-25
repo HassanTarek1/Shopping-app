@@ -51,5 +51,16 @@
             android:textColor="#333"
             android:textSize="14sp" />
 
+        <TextView
+            android:id="@+id/distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/offer"
+            android:layout_marginStart="26dp"
+            android:layout_marginLeft="26dp"
+            android:layout_marginTop="45dp"
+            android:textColor="#333"
+            android:textSize="14sp" />
+
     </RelativeLayout>
 </LinearLayout>

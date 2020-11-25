@@ -1,8 +1,6 @@
 package info.androidhive.loginandregistration.activity;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
@@ -26,7 +24,7 @@ import com.google.android.gms.tasks.Task;
 import info.androidhive.loginandregistration.R;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
-    public static Location currentLocation;
+    public Location currentLocation;
     FusedLocationProviderClient fusedLocationProviderClient;
     private static final int REQUEST_CODE = 101;
     @Override
@@ -35,10 +33,6 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         setContentView(R.layout.activity_map);
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLocation();
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",""+currentLocation.getLongitude()+","+currentLocation.getLatitude());
-        setResult(Activity.RESULT_OK,returnIntent);
-        finish();
     }
     public void fetchLocation() {
         if (ActivityCompat.checkSelfPermission(
