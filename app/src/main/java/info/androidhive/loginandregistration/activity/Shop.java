@@ -22,23 +22,24 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import info.androidhive.loginandregistration.R;
 
 public class Shop extends AppCompatActivity implements LocationListener {
 
-    String urladdress = "http://172.21.16.1/android_login_api/display_shop_product.php";
-    String urladdress2 = "http://172.21.16.1/android_login_api/display_shop.php";
+    String urladdress = "http://172.23.48.1/android_login_api/display_shop_product.php";
+    String urladdress2 = "http://172.23.48.1/android_login_api/display_shop.php";
     String[] shopID;
     String[] productID;
-    String[] price;
-    String[] specialOffer;
+    ArrayList<String> price;
+    ArrayList<String> specialOffer;
 
-    String[] shopName;
-    String[] latitude;
-    String[] longitude;
-    String[] distances;
+    ArrayList<String> shopName;
+    ArrayList<String> latitude;
+    ArrayList<String> longitude;
+    ArrayList<String> distances;
 
     ListView listView;
     BufferedInputStream is;
@@ -121,19 +122,17 @@ public class Shop extends AppCompatActivity implements LocationListener {
             JSONObject jo = null;
             productID = new String[ja.length()];
             shopID = new String[ja.length()];
-            price = new String[ja.length()];
-            specialOffer = new String[ja.length()];
+            price = new ArrayList<String>();
+            specialOffer = new ArrayList<String>();
             int k=0;
             for (int i = 0; i <= ja.length(); i++) {
-                price[i]=null;
-                specialOffer[i]=null;
                 jo = ja.getJSONObject(i);
                 productID[i] = jo.getString("product_id");
                 int idtmp = Integer.parseInt(productID[i]);
                 if (idtmp==id){
                     shopID[k] = jo.getString("shop_id");
-                    price[k] = jo.getString("price");
-                    specialOffer[k] = jo.getString("available_special_offers");
+                    price.add(jo.getString("price"));
+                    specialOffer.add(jo.getString("available_special_offers"));
                     k++;
                 }
 
@@ -181,25 +180,23 @@ public class Shop extends AppCompatActivity implements LocationListener {
         try {
             JSONArray ja = new JSONArray(result);
             JSONObject jo = null;
-            shopName = new String[ja.length()];
-            latitude = new String[ja.length()];
-            longitude = new String[ja.length()];
-            distances = new String[ja.length()];
+            shopName = new ArrayList<String>();
+            latitude = new ArrayList<String>();
+            longitude = new ArrayList<String>();
+            distances = new ArrayList<String>();
 //            currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             int k=0;
 //            fetchLocation();
             for (int i = 0; i <= ja.length(); i++) {
-                shopName[i]=null;
-                distances[i]=null;
                 jo = ja.getJSONObject(i);
                 String idtmp = jo.getString("id");
                 for (int j = 0; j <shopID.length ; j++) {
                     if(idtmp.equals(shopID[j])){
-                        shopName[k] = jo.getString("name");
-                        latitude[k] = jo.getString("latitude");
-                        longitude[k] = jo.getString("longitude");
-                        distances[k] = ""+ calculationByDistance(this.currentLocation.getLongitude(),this.currentLocation.getLatitude()
-                                , Double.parseDouble(longitude[k]), Double.parseDouble(latitude[k]));
+                        shopName.add(jo.getString("name"));
+                        latitude.add(jo.getString("latitude"));
+                        longitude.add(jo.getString("longitude"));
+                        distances.add(""+ calculationByDistance(this.currentLocation.getLongitude(),this.currentLocation.getLatitude()
+                                , Double.parseDouble(longitude.get(k)), Double.parseDouble(latitude.get(k))));
                         k++;
                     }
                 }

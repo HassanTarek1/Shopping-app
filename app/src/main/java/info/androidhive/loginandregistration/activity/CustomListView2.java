@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 import info.androidhive.loginandregistration.R;
 
 /**
@@ -19,14 +21,14 @@ import info.androidhive.loginandregistration.R;
 
 public class CustomListView2 extends ArrayAdapter<String> {
 
-    private String[] shopName;
-    private String[] price;
-    private String[] specialOffer;
-    private String[] distances;
+    private  ArrayList<String> shopName;
+    private  ArrayList<String> price;
+    private  ArrayList<String> specialOffer;
+    private  ArrayList<String> distances;
     private Activity context;
     Bitmap bitmap;
 
-    public CustomListView2(Activity context, String[] shopName, String[] price, String[] specialOffer, String[] distances) {
+    public CustomListView2(Activity context, ArrayList<String> shopName,  ArrayList<String> price,  ArrayList<String> specialOffer,  ArrayList<String> distances) {
         super(context, R.layout.layout2, shopName);
         this.context=context;
         this.shopName = shopName;
@@ -52,16 +54,16 @@ public class CustomListView2 extends ArrayAdapter<String> {
 
         }
 
-        viewHolder.tvw1.setText(shopName[position]);
-        viewHolder.tvw2.setText(price[position]);
-        if(specialOffer[position]!=null && !specialOffer[position].equals(""))
-            viewHolder.tvw3.setText(specialOffer[position]);
+        viewHolder.tvw1.setText(shopName.get(position));
+        viewHolder.tvw2.setText(price.get(position));
+        if(specialOffer.get(position)!=null && !specialOffer.get(position).equals(""))
+            viewHolder.tvw3.setText(specialOffer.get(position));
         else{
-            if (shopName[position]!=null && !shopName[position].equals(""))
+            if (shopName.get(position)!=null && !shopName.get(position).equals(""))
                 viewHolder.tvw3.setText("No Available Offers");
         }
 
-        viewHolder.tvw4.setText(distances[position]);
+        viewHolder.tvw4.setText(distances.get(position));
 
 
         return r;
