@@ -22,7 +22,7 @@ import info.androidhive.loginandregistration.R;
 
 public class List_Products extends AppCompatActivity {
 
-    String urladdress = "http://172.23.48.1/android_login_api/display_product.php";
+    String urladdress = "http://172.30.112.1/android_login_api/display_product.php";
     String[] productName;
     String[] description;
     String[] imagepath;
