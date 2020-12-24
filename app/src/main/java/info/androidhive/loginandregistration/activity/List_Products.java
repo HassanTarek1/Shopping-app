@@ -30,12 +30,22 @@ public class List_Products extends AppCompatActivity {
     BufferedInputStream is;
     String line = null;
     String result = null;
+    String user_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list__products);
-
+        if (savedInstanceState == null) {
+            Bundle extras = getIntent().getExtras();
+            if (extras == null) {
+                user_id = "";
+            } else {
+                user_id = extras.getString("user_id");
+            }
+        } else {
+            user_id = (String) savedInstanceState.getSerializable("user_id");
+        }
         listView = (ListView) findViewById(R.id.lview);
 
         StrictMode.setThreadPolicy((new StrictMode.ThreadPolicy.Builder().permitNetwork().build()));
@@ -43,10 +53,12 @@ public class List_Products extends AppCompatActivity {
         CustomListView customListView = new CustomListView(this, productName, description, imagepath);
         listView.setAdapter(customListView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent= new Intent(List_Products.this, Shop.class);
                 intent.putExtra("product_ID",position);
+                intent.putExtra("user_id",user_id);
                 startActivity(intent);
 
             }

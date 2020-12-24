@@ -12,6 +12,7 @@ import androidx.annotation.RequiresApi;
 
 import java.util.HashMap;
 
+import info.androidhive.loginandregistration.activity.CartActivity;
 import info.androidhive.loginandregistration.activity.List_Products;
 import info.androidhive.loginandregistration.activity.LoginActivity;
 import info.androidhive.loginandregistration.activity.MapActivity;
@@ -25,6 +26,9 @@ public class MainActivity extends Activity {
     private Button btnLogout;
     private Button btnmap;
     private Button btnproducts;
+    private Button btnCart;
+
+    private String user_id;
 
     private SQLiteHandler db;
     private SessionManager session;
@@ -40,6 +44,7 @@ public class MainActivity extends Activity {
         btnLogout = (Button) findViewById(R.id.btnLogout);
         btnmap = (Button) findViewById(R.id.btnmap);
         btnproducts= (Button) findViewById(R.id.btnproducts);
+        btnCart= (Button) findViewById(R.id.btncart);
 
         // SqLite database handler
         db = new SQLiteHandler(getApplicationContext());
@@ -56,6 +61,7 @@ public class MainActivity extends Activity {
 
         String name = user.get("name");
         String email = user.get("email");
+        user_id = user.get("unique_id");
 
         // Displaying the user details on the screen
         txtName.setText(name);
@@ -86,6 +92,15 @@ public class MainActivity extends Activity {
                 showProducts();
             }
         });
+
+        btnCart.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                goToCart();
+            }
+        });
+
     }
 
     /**
@@ -109,6 +124,12 @@ public class MainActivity extends Activity {
 
     private void showProducts(){
         Intent intent = new Intent(MainActivity.this, List_Products.class);
+        intent.putExtra("user_id",user_id);
+        startActivity(intent);
+    }
+    private void goToCart(){
+        Intent intent = new Intent(MainActivity.this, CartActivity.class);
+        intent.putExtra("user_id",user_id);
         startActivity(intent);
     }
 }

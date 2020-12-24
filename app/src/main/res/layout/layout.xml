@@ -16,7 +16,7 @@
             android:layout_height="86dp"
             android:layout_weight="1" />
 
-<TextView
+    <TextView
     android:id="@+id/productname"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -43,6 +43,9 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             android:textColor="#333"
             android:textSize="14sp" />
+
+
+
 
     </RelativeLayout>
 </LinearLayout>

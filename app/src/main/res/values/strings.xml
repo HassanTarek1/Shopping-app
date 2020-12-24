@@ -23,6 +23,9 @@
     <string name="no_offer">No Available Offers</string>
     <string name="btn_filterPrice">filter by price</string>
     <string name="btn_filterDistance">filter by distance</string>
+    <string name="btn_addcart">add</string>
+    <string name="btn_cart">cart</string>
+    <string name="btn_delete">delete</string>
 
 
 </resources>

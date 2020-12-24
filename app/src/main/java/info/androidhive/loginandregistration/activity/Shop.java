@@ -31,8 +31,9 @@ import info.androidhive.loginandregistration.R;
 
 public class Shop extends AppCompatActivity implements LocationListener {
 
-    String urladdress = "http://172.30.112.1/android_login_api/display_shop_product.php";
-    String urladdress2 = "http://172.30.112.1/android_login_api/display_shop.php";
+    String displayShopProductURL = "http://172.30.112.1/android_login_api/display_shop_product.php";
+    String displayShopURL = "http://172.30.112.1/android_login_api/display_shop.php";
+
     String[] shopID;
     String[] productID;
     ArrayList<String> price;
@@ -42,15 +43,18 @@ public class Shop extends AppCompatActivity implements LocationListener {
     ArrayList<String> latitude;
     ArrayList<String> longitude;
     ArrayList<String> distances;
+    ArrayList<String> extra_shop_id;
 
     ListView listView;
     BufferedInputStream is;
     String line = null;
     String result = null;
-    int id;
+    int product_id;
+    String user_id;
 
     private Button btnfilterPrice;
     private Button btnfilterDistance;
+
 
 
     protected LocationManager locationManager;
@@ -73,12 +77,15 @@ public class Shop extends AppCompatActivity implements LocationListener {
         if (savedInstanceState == null) {
             Bundle extras = getIntent().getExtras();
             if (extras == null) {
-                id = 0;
+                product_id = 0;
+                user_id="";
             } else {
-                id = extras.getInt("product_ID") + 1;
+                product_id = extras.getInt("product_ID") + 1;
+                user_id=extras.getString("user_id");
             }
         } else {
-            id = (int) savedInstanceState.getSerializable("product_ID") + 1;
+            product_id = (int) savedInstanceState.getSerializable("product_ID") + 1;
+            user_id= (String) savedInstanceState.getSerializable("user_id");
         }
 
         listView = (ListView) findViewById(R.id.lview2);
@@ -91,8 +98,10 @@ public class Shop extends AppCompatActivity implements LocationListener {
         btnfilterPrice = (Button) findViewById(R.id.btnfilterPrice);
         btnfilterDistance = (Button) findViewById(R.id.btnfilterDistance);
 
-        CustomListView2 customListView = new CustomListView2(this, shopName, price, specialOffer, distances);
+        String ids= user_id+""+product_id;
+        CustomListView2 customListView = new CustomListView2(this, shopName, price, specialOffer, distances, ids , extra_shop_id);
         listView.setAdapter(customListView);
+
         btnfilterPrice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,6 +116,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
                 customListView.notifyDataSetChanged();
             }
         });
+
     }
 
 
@@ -114,7 +124,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
 //Connection
         try {
 
-            URL url = new URL(urladdress);
+            URL url = new URL(displayShopProductURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             is = new BufferedInputStream(con.getInputStream());
@@ -150,7 +160,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
                 jo = ja.getJSONObject(i);
                 productID[i] = jo.getString("product_id");
                 int idtmp = Integer.parseInt(productID[i]);
-                if (idtmp == id) {
+                if (idtmp == product_id) {
                     shopID[k] = jo.getString("shop_id");
                     price.add(jo.getString("price"));
                     specialOffer.add(jo.getString("available_special_offers"));
@@ -173,7 +183,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
 //Connection
         try {
 
-            URL url = new URL(urladdress2);
+            URL url = new URL(displayShopURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
             is = new BufferedInputStream(con.getInputStream());
@@ -204,6 +214,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
             latitude = new ArrayList<String>();
             longitude = new ArrayList<String>();
             distances = new ArrayList<String>();
+            extra_shop_id = new ArrayList<String>();
 //            currentLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
             int k = 0;
 //            fetchLocation();
@@ -212,6 +223,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
                 String idtmp = jo.getString("id");
                 for (int j = 0; j < shopID.length; j++) {
                     if (idtmp.equals(shopID[j])) {
+                        extra_shop_id.add(jo.getString("id"));
                         shopName.add(jo.getString("name"));
                         latitude.add(jo.getString("latitude"));
                         longitude.add(jo.getString("longitude"));
@@ -353,6 +365,7 @@ public class Shop extends AppCompatActivity implements LocationListener {
         }
 
     }
+
 
 
 }
